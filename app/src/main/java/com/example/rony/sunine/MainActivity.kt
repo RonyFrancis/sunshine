@@ -13,37 +13,33 @@ import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
-    var character = arrayOf("arrow", "robin")
+    // array values
+    var sList: Array<String>  = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven",
+            "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //       var lv = findViewById(R.id.listview) as ListView
 
-        //    var mforcastAdapter= ArrayAdapter<String>(applicationContext,
-        //           R.layout.listitem,
-        //           R.id.list_id,
-        //           character
-        //           ) as ArrayAdapter<String>
-        //lv.adapter = mforcastAdapter
-        //    lv.setAdapter(mforcastAdapter)i
         val lv = findViewById(R.id.listview) as ListView
-        lv.adapter = ListAdapter(this)
+
+        lv.adapter = ListAdapter(this, sList)
     }
-    private class ListAdapter(context: Context) : BaseAdapter() {
-        internal var sList = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven",
-                "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen")
+    private class ListAdapter(context: Context,sList: Array<String>) : BaseAdapter() {
         private val mInflator: LayoutInflater
+        private var sList: Array<String>
+        
         init {
             this.mInflator = LayoutInflater.from(context)
+            this.sList = sList as Array<String>
         }
 
         override fun getCount(): Int {
-            return sList.size
+            return this.sList.size
         }
 
         override fun getItem(position: Int): Any {
-            return sList[position]
+            return this.sList[position]
         }
 
         override fun getItemId(position: Int): Long {
